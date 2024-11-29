@@ -19,12 +19,11 @@ type App struct {
 
 func New(
 	log *slog.Logger,
+	authService authGRPC.Auth,
 	port int,
-	//storagePath string,
-	//tokenTTL time.Duration,
 ) *App {
 	gRPCSever := grpc.NewServer()
-	authGRPC.Register(gRPCSever)
+	authGRPC.Register(gRPCSever, authService)
 
 	return &App{
 		log:        log,
